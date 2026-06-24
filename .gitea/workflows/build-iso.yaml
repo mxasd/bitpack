@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # This specifies that the build will run on a fresh Ubuntu server
+    runs-on: ubuntu # This specifies that the build will run on a fresh Ubuntu server
     
     steps:
     - name: Checkout repository # Step 1: Get your files from Codeberg
