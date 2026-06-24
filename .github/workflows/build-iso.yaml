@@ -22,9 +22,10 @@ jobs:
 
     - name: Run BitPack Build Script
       run: |
-        # Use 'tr' to strip all CR characters from the script, then pipe to bash
-        tr -d '\r' < distro-builder/build.sh > distro-builder/build_fixed.sh
-        sudo bash distro-builder/build_fixed.sh
+        # Strip carriage returns and create a clean version
+        tr -d '\r' < distro-builder/build.sh > build_fixed.sh
+        # Run the script with sudo so it has permission to build
+        sudo bash build_fixed.sh
 
     - name: Upload ISO artifact # Step 4: Save the resulting ISO file
       uses: actions/upload-artifact@v4
