@@ -7,7 +7,7 @@ echo "--- Starting BitPack OS Build ---"
 # 1. Install necessary tools for the build process itself
 echo "Installing build dependencies..."
 sudo apt update
-sudo apt install -y curl wget git nano live-build systemd-resolved rsync squashfs-tools xorriso fakeroot
+sudo apt install -y curl wget git nano live-build systemd-resolved rsync squashfs-tools xorriso fakeroot syslinux-utils
 
 # Ensure YAML parsing is available (we'll use a simple method for this script)
 # For robust YAML parsing, a dedicated tool like 'yq' might be preferred,
@@ -30,12 +30,12 @@ echo "Configuring live-build..."
 sudo lb clean
 sudo lb config --architecture amd64 \
     --distribution noble \
-    --binary-images iso-hybrid \
+    --binary-images iso \
     --chroot-filesystem squashfs \
     --archive-areas "main universe restricted multiverse" \
     --bootloader grub-efi \
     --memtest none
-
+    
 # 3. Add custom hooks for post-installation customization
 echo "Creating custom hooks..."
 mkdir -p config/hooks/normal
