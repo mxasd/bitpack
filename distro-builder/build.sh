@@ -27,12 +27,13 @@ DEFAULT_MODE=$(grep "default_mode:" distro-builder/config.yaml | cut -d ':' -f 2
 
 # 2. Prepare live-build configuration
 echo "Configuring live-build..."
+sudo lb clean
 sudo lb config --architecture amd64 \
     --distribution noble \
     --binary-images iso-hybrid \
     --chroot-filesystem squashfs \
     --archive-areas "main universe restricted multiverse" \
-    --syslinux-theme "" \
+    --bootloader grub-efi \
     --memtest none
 
 # 3. Add custom hooks for post-installation customization
