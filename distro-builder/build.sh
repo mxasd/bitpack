@@ -33,7 +33,9 @@ sudo lb config --architecture amd64 \
     --binary-images iso \
     --chroot-filesystem squashfs \
     --archive-areas "main universe restricted multiverse" \
+    --mode debian \
     --bootloader grub-efi \
+    --debian-installer live \
     --memtest none
     
 # 3. Add custom hooks for post-installation customization
