@@ -26,16 +26,12 @@ WALLPAPER_URL=$(grep "wallpaper_url:" distro-builder/config.yaml | cut -d ':' -f
 DEFAULT_MODE=$(grep "default_mode:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
 
 # 2. Prepare live-build configuration
-echo "Configuring live-build for ${OS_NAME} based on ${BASE_SYSTEM}..."
-sudo lb config noauto \
-    --architecture amd64 \
-    --distribution $(echo $BASE_SYSTEM | cut -d '-' -f 1 | tr '[:upper:]' '[:lower:]') \
+echo "Configuring live-build..."
+sudo lb config --architecture amd64 \
+    --distribution noble \
     --binary-images iso-hybrid \
     --chroot-filesystem squashfs \
-    --mirror-bootstrap "http://archive.ubuntu.com/ubuntu/" \
-    --archive-areas "main universe restricted multiverse" \
-    --apt-recommends false \
-    --bootappend-live "locales=en_US.UTF-8 keyboard-layouts=en timezone=Etc/UTC"
+    --archive-areas "main universe restricted multiverse"
 
 # 3. Add custom hooks for post-installation customization
 echo "Creating custom hooks..."
