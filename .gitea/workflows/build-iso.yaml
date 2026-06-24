@@ -1,0 +1,34 @@
+# .gitea/workflows/build-iso.yaml
+name: Build BitPack ISO
+
+on:
+  push:
+    branches:
+      - main # Trigger this workflow whenever changes are pushed to the 'main' branch
+  workflow_dispatch: # Allows you to manually trigger the workflow from the Codeberg UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # This specifies that the build will run on a fresh Ubuntu server
+    
+    steps:
+    - name: Checkout repository # Step 1: Get your files from Codeberg
+      uses: actions/checkout@v3
+
+    - name: Set up Build Environment # Step 2: Install tools needed by build.sh
+      run: |
+        sudo apt update
+        sudo apt install -y curl wget git nano live-build systemd-resolved rsync squashfs-tools xorriso fakeroot
+
+    - name: Run BitPack Build Script # Step 3: Execute your build.sh script!
+      run: |
+        chmod +x distro-builder/build.sh # Make the script executable on the build server
+        cd distro-builder # Navigate into your project folder
+        ./build.sh # Run your build script
+
+    - name: Upload ISO artifact # Step 4: Save the resulting ISO file
+      uses: actions/upload-artifact@v3
+      with:
+        name: BitPack-ISO
+        path: distro-builder/*.iso # This tells Codeberg to look for any .iso file in distro-builder
+        retention-days: 7 # How long the ISO will be available for download
