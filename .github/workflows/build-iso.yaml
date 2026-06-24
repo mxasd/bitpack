@@ -22,8 +22,9 @@ jobs:
 
     - name: Run BitPack Build Script
       run: |
-        # Explicitly run bash on the script file
-        bash distro-builder/build.sh
+        # Use 'tr' to strip all CR characters from the script, then pipe to bash
+        tr -d '\r' < distro-builder/build.sh > distro-builder/build_fixed.sh
+        sudo bash distro-builder/build_fixed.sh
 
     - name: Upload ISO artifact # Step 4: Save the resulting ISO file
       uses: actions/upload-artifact@v4
