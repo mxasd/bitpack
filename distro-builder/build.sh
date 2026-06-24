@@ -159,6 +159,7 @@ sudo lb build
 
 # 5. Rename the ISO for clarity
 echo "Build complete. Renaming ISO..."
-mv live-image-amd64.hybrid.iso "${OS_NAME}-amd64-$(date +%Y%m%d%H%M).iso"
+# We will just name it BitPack.iso to avoid all date formatting issues
+mv binary.iso BitPack.iso
 
 echo "--- BitPack OS Build Finished! ---"
