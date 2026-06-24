@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e # Exit immediately if a command exits with a non-zero status
+cd distro-builder
 
 echo "--- Starting BitPack OS Build ---"
 
@@ -29,11 +30,8 @@ echo "Configuring live-build for ${OS_NAME} based on ${BASE_SYSTEM}..."
 sudo lb config noauto \
     --architecture amd64 \
     --distribution $(echo $BASE_SYSTEM | cut -d '-' -f 1 | tr '[:upper:]' '[:lower:]') \
-    --debian-installer live \
     --binary-images iso-hybrid \
     --chroot-filesystem squashfs \
-    --parent-distribution $(echo $BASE_SYSTEM | cut -d '-' -f 1 | tr '[:upper:]' '[:lower:]') \
-    --parent-binary-images iso-hybrid \
     --mirror-bootstrap "http://archive.ubuntu.com/ubuntu/" \
     --archive-areas "main universe restricted multiverse" \
     --apt-recommends false \
