@@ -31,7 +31,9 @@ sudo lb config --architecture amd64 \
     --distribution noble \
     --binary-images iso-hybrid \
     --chroot-filesystem squashfs \
-    --archive-areas "main universe restricted multiverse"
+    --archive-areas "main universe restricted multiverse" \
+    --syslinux-theme "" \
+    --memtest none
 
 # 3. Add custom hooks for post-installation customization
 echo "Creating custom hooks..."
