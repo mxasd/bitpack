@@ -13,16 +13,16 @@ sudo apt install -y curl wget git nano live-build systemd-resolved rsync squashf
 # but for simplicity, we'll grep/cut directly or source environment variables.
 
 # Load config.yaml values (simplified approach)
-OS_NAME=$(grep "os_name:" config.yaml | cut -d ':' -f 2 | xargs)
-BASE_SYSTEM=$(grep "base_system:" config.yaml | cut -d ':' -f 2 | xargs)
-PACKAGES_STR=$(grep -A 20 "packages:" config.yaml | grep -v "packages:" | sed '/^$/d' | sed '/^#/d' | sed 's/^- //g' | xargs)
-DESKTOP_ENV=$(grep "desktop_environment:" config.yaml | cut -d ':' -f 2 | xargs)
-THEME=$(grep "theme:" config.yaml | cut -d ':' -f 2 | xargs)
-ICON_THEME=$(grep "icon_theme:" config.yaml | cut -d ':' -f 2 | xargs)
-FONT=$(grep "font:" config.yaml | cut -d ':' -f 2 | xargs)
-TERMINAL_FONT=$(grep "terminal_font:" config.yaml | cut -d ':' -f 2 | xargs)
-WALLPAPER_URL=$(grep "wallpaper_url:" config.yaml | cut -d ':' -f 2 | xargs)
-DEFAULT_MODE=$(grep "default_mode:" config.yaml | cut -d ':' -f 2 | xargs)
+OS_NAME=$(grep "os_name:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
+BASE_SYSTEM=$(grep "base_system:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
+PACKAGES_STR=$(grep -A 20 "packages:" distro-builder/config.yaml | grep -v "packages:" | sed '/^$/d' | sed '/^#/d' | sed 's/^- //g' | xargs)
+DESKTOP_ENV=$(grep "desktop_environment:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
+THEME=$(grep "theme:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
+ICON_THEME=$(grep "icon_theme:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
+FONT=$(grep "font:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
+TERMINAL_FONT=$(grep "terminal_font:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
+WALLPAPER_URL=$(grep "wallpaper_url:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
+DEFAULT_MODE=$(grep "default_mode:" distro-builder/config.yaml | cut -d ':' -f 2 | xargs)
 
 # 2. Prepare live-build configuration
 echo "Configuring live-build for ${OS_NAME} based on ${BASE_SYSTEM}..."
@@ -37,7 +37,6 @@ sudo lb config noauto \
     --mirror-bootstrap "http://archive.ubuntu.com/ubuntu/" \
     --archive-areas "main universe restricted multiverse" \
     --apt-recommends false \
-    --bootstrap-qemu-helper true \
     --bootappend-live "locales=en_US.UTF-8 keyboard-layouts=en timezone=Etc/UTC"
 
 # 3. Add custom hooks for post-installation customization
