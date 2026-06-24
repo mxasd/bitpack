@@ -20,11 +20,10 @@ jobs:
         sudo apt update
         sudo apt install -y curl wget git nano live-build systemd-resolved rsync squashfs-tools xorriso fakeroot
 
-    - name: Run BitPack Build Script # Step 3: Execute your build.sh script!
+    - name: Run BitPack Build Script
       run: |
-        chmod +x distro-builder/build.sh # Make the script executable on the build server
-        cd distro-builder # Navigate into your project folder
-        ./build.sh # Run your build script
+        # Explicitly run bash on the script file
+        bash distro-builder/build.sh
 
     - name: Upload ISO artifact # Step 4: Save the resulting ISO file
       uses: actions/upload-artifact@v4
