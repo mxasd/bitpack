@@ -33,10 +33,11 @@ sudo lb config --architecture amd64 \
     --binary-images iso \
     --chroot-filesystem squashfs \
     --archive-areas "main universe restricted multiverse" \
-    --mode debian \
     --bootloader grub-efi \
-    --debian-installer live \
-    --memtest none
+    --memtest none \
+    --mirror-bootstrap "http://archive.ubuntu.com/ubuntu/" \
+    --mirror-chroot "http://archive.ubuntu.com/ubuntu/" \
+    --mirror-binary "http://archive.ubuntu.com/ubuntu/"
     
 # 3. Add custom hooks for post-installation customization
 echo "Creating custom hooks..."
