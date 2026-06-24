@@ -27,7 +27,7 @@ jobs:
         ./build.sh # Run your build script
 
     - name: Upload ISO artifact # Step 4: Save the resulting ISO file
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: BitPack-ISO
         path: distro-builder/*.iso # This tells Codeberg to look for any .iso file in distro-builder
