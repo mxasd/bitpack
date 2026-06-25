@@ -35,9 +35,8 @@ sudo lb config --architecture amd64 \
     --archive-areas "main universe restricted multiverse" \
     --bootloader grub-efi \
     --memtest none \
-    --mirror-bootstrap "http://archive.ubuntu.com/ubuntu/" \
-    --mirror-chroot "http://archive.ubuntu.com/ubuntu/" \
-    --mirror-binary "http://archive.ubuntu.com/ubuntu/"
+    --iso-volume "BitPack" \
+    --apt-recommends false
     
 # 3. Add custom hooks for post-installation customization
 echo "Creating custom hooks..."
@@ -158,6 +157,8 @@ chmod +x config/hooks/normal/01-bitpack-custom.chroot
 
 # 4. Build the ISO
 echo "Starting the ISO build process..."
+# Force the creation of the boot directory structure
+sudo mkdir -p config/binary/boot/grub
 sudo lb build
 
 # 5. Rename the ISO for clarity
